@@ -8,21 +8,6 @@
 			"title":  ["My Projects"],
 			"items": [
 				{
-					"title": ["Runa"],
-					"date": "2021",
-					"techs": ["NodeJS", "VueJS", "PostgreSQL", "Primevue", "D3.js"],
-					"sub": ["Experimental prototype of the new user interface and API of the National Corpus of Russian Language funded in terms of Corpus2.0 project."],
-					"git": "https://github.com/yaskevich/runa",
-					"img": "runa.png"
-				},			{
-					"title": ["Persona"],
-					"date": "Feb 2021 – Jun 2021",
-					"techs": ["NodeJS", "ExpressJS", "VueJS", "PostgreSQL", "ElementPlus"],
-					"sub": ["Web application for gathering and presenting data about life events of creative persons. This project was developed for research group of history of literature scholars working on the study of the oeuvre of Boris Pasternak."],
-					"img": "persona.png",
-					"git": "https://github.com/yaskevich/persona"
-				},			
-				
 					"title": ["Super Cool App"],
 					"techs": ["Rust"],
 					"date": 2022,
