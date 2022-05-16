@@ -113,7 +113,7 @@ setupEventSource()
           <p>
           <strong>
             {{#url}}
-              <a href="{{url}}" target="_blank">{{title}}</a>
+              <a href="{{{url}}}" target="_blank">{{title}}</a>
             {{/url}}
             {{^url}}
               {{title}}
@@ -124,7 +124,7 @@ setupEventSource()
           <span class="tag is-warning">{{.}}</span>
           {{/techs}}
           {{#git}}
-          <a href="{{git}}" target="_blank"><img src="images/Octicons-mark-github.svg" alt="Github link" class="git" title="Click to see the Github repository with code"></a>
+          <a href="{{{git}}}" target="_blank"><img src="images/Octicons-mark-github.svg" alt="Github link" class="git" title="Click to see the Github repository with code"></a>
           {{/git}} 
           <br>
           {{#sub}}{{{sub}}}{{/sub}}
@@ -139,7 +139,7 @@ setupEventSource()
   
   <div class="container box">
     <p>
-      © 2022, <a href="{{site}}" target="_blank">{{author}}</a>
+      © 2022, <a href="{{{site}}}" target="_blank">{{author}}</a>
     </p>
   </div>
 
