@@ -8,45 +8,43 @@
   <meta name="author" content="{{author}}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css">
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 
-						
-						
 {{^index}}
 <script type="text/javascript">
 var evtSource;
 function setupEventSource() {
     evtSource = new EventSource("subscribe"); 
-	evtSource.onmessage = function (e) {
-		e.stopPropagation();
-		var el = document.querySelector('body');
-		var minHeight = el.scrollTop;
-		var maxHeight = window.innerHeight;
-		var middleHeight = (maxHeight + minHeight) / 2;
-		
-		console.log(minHeight, maxHeight);
-		var ek  = window.innerWidth;
-		console.log(window.innerWidth, window.innerHeight);
-		var elem = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
-		var media  = elem.closest(".media");
-		
-		var rect = media.getBoundingClientRect();
-		console.log(rect.top, rect.bottom);
-		
-		
-		evtSource.onmessage =  function(){};
-		document.open('text/html');
-		document.write(e.data);
-		document.close();
-		
-		window.scrollTo(0, 500);
-	};
+  evtSource.onmessage = function (e) {
+    e.stopPropagation();
+    var el = document.querySelector('body');
+    var minHeight = el.scrollTop;
+    var maxHeight = window.innerHeight;
+    var middleHeight = (maxHeight + minHeight) / 2;
+    
+    console.log(minHeight, maxHeight);
+    var ek  = window.innerWidth;
+    console.log(window.innerWidth, window.innerHeight);
+    var elem = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
+    var media  = elem.closest(".media");
+    
+    var rect = media.getBoundingClientRect();
+    console.log(rect.top, rect.bottom);
+    
+    
+    evtSource.onmessage =  function(){};
+    document.open('text/html');
+    document.write(e.data);
+    document.close();
+    
+    window.scrollTo(0, 500);
+  };
     evtSource.onerror = function(e) {
       evtSource.close();
-	  console.log("disconnect");
+    console.log("disconnect");
       setupEventSource()
     };
 }
@@ -57,86 +55,93 @@ setupEventSource()
 </script>
 {{/index}}
 
-
-
   <style>
-	body {
-	  background-color: linen;
-	}
-	.topic {
-	  margin-top: 1rem;
-	}
-	.git {
-		width: 1rem;
-		vertical-align: middle;
-		animation-name: recolor;
-		animation-duration: 10s;
-		animation-iteration-count: infinite;
-	}
-	.git:hover{
-	filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);		
-	}
-	/*
-	@keyframes recolor {		
-		to{
-		filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);		
-		}
-	}
-	*/
-	.image{
-		border: .5px solid silver;
-	}
-
-</style>
+    body {
+      background-color: linen;
+      padding: 30px 0px;
+    }
+    .topic {
+      margin-top: 1rem;
+    }
+    .git {
+      width: 1rem;
+      vertical-align: middle;
+      animation-name: recolor;
+      animation-duration: 10s;
+      animation-iteration-count: infinite;
+    }
+    .git:hover{
+      filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);    
+    }
+    /*
+    @keyframes recolor {    
+      to{
+      filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);    
+      }
+    }
+    */
+    .image{
+      border: .5px solid silver;
+    }
+    .hovered {
+      transition: all .2s ease-in-out;
+    }
+    .hovered:hover {
+      transform: scale(7) translateX(40%);
+      position: relative;
+      z-index: 1000;
+    }
+  </style>
 </head>
 
 <body>
   <!-- <script src="js/scripts.js"></script> -->
   <div class="container box">
-  <h1 class="title">{{title}}  {{author}}</h1>
-	{{#topics}}
-		<div class="topic">
-		<h2 class="subtitle">{{title}}</h2>
-		{{#items}}
-			<article class="media">
-			  <figure class="media-left">
-				<p class="image is-64x64">
-				  <img src="{{#img}}images/{{img}}{{/img}}{{^img}}https://bulma.io/images/placeholders/128x128.png{{/img}}">
-				</p>
-			  </figure>
-			  <div class="media-content">
-				<div class="content">
-				  <p>
-					<strong>
-						{{#url}}
-							<a href="{{url}}" target="_blank">{{title}}</a>
-						{{/url}}
-						{{^url}}
-							{{title}}
-						{{/url}}
-					</strong>
-					<small>{{date}}</small>
-					{{#techs}}
-					<span class="tag is-warning">{{.}}</span>
-					{{/techs}}
-					{{#git}}
-					<a href="{{git}}" target="_blank"><img src="images/Octicons-mark-github.svg" alt="Github link" class="git" title="Click to see the Github repository with code"></a>
-					{{/git}} 
-					<br>
-					{{#sub}}{{{sub}}}{{/sub}}
-				  </p>
-				</div>
-			  </div>
-			</article>			
-		{{/items}}
-		</div>
-	{{/topics}}
+  <h1 class="title">{{title}} {{author}}</h1>
+  {{#topics}}
+    <div class="topic">
+    <h2 class="subtitle">{{title}}</h2>
+    {{#items}}
+      <article class="media">
+        <figure class="media-left">
+        <p class="image is-64x64 {{#img}}hovered{{/img}}">
+          <img src="{{#img}}images/{{img}}{{/img}}{{^img}}https://bulma.io/images/placeholders/128x128.png{{/img}}">
+        </p>
+        </figure>
+        <div class="media-content">
+        <div class="content">
+          <p>
+          <strong>
+            {{#url}}
+              <a href="{{url}}" target="_blank">{{title}}</a>
+            {{/url}}
+            {{^url}}
+              {{title}}
+            {{/url}}
+          </strong>
+          <small>{{date}}</small>
+          {{#techs}}
+          <span class="tag is-warning">{{.}}</span>
+          {{/techs}}
+          {{#git}}
+          <a href="{{git}}" target="_blank"><img src="images/Octicons-mark-github.svg" alt="Github link" class="git" title="Click to see the Github repository with code"></a>
+          {{/git}} 
+          <br>
+          {{#sub}}{{{sub}}}{{/sub}}
+          </p>
+        </div>
+        </div>
+      </article>      
+    {{/items}}
+    </div>
+  {{/topics}}
   </div>
   
-  
-  
-  <div style="margin-top:50px;">
-  <a href="{{site}}">See more... →</a>
+  <div class="container box">
+    <p>
+      © 2022, <a href="{{site}}" target="_blank">{{author}}</a>
+    </p>
   </div>
+
 </body>
 </html>
