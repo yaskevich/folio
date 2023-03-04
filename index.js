@@ -5,10 +5,12 @@ const path = require('path');
 const mustache = require('mustache');
 const express = require('express');
 
+const today = new Date(Date.now()).toLocaleDateString();
 const port = 3210;
 const TMPL = 'template.html';
 const PRJ = 'projects.json'
 render();
+
 
 
 function render() {
@@ -17,7 +19,7 @@ function render() {
     // console.log(projects);
     const template = fs.readFileSync(TMPL, 'utf8');
     // console.log(template);
-    const rendered_sse = mustache.render(template, projects);
+    const rendered_sse = mustache.render(template, {today, ...projects});
     // console.log(rendered);
 	projects["index"] = true;
 	const rendered = mustache.render(template, projects);
@@ -93,7 +95,7 @@ if (mode) {
 						console.log("Fix JSON issue:", e.message);
 					} 
 					if (json) {
-						const rendered = mustache.render(fs.readFileSync(TMPL, 'utf8'), json);
+						const rendered = mustache.render(fs.readFileSync(TMPL, 'utf8'), {today, ...json});
 						if (client) {
 							client.write('data: ' + rendered.replace(/(\r\n|\n|\r)/gm, "") + '\n\n');
 						} else {
