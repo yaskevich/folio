@@ -1,6 +1,7 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>{{title}} {{author}}</title>
@@ -13,56 +14,58 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="manifest" href="/site.webmanifest">
 
-{{^index}}
-<script type="text/javascript">
-var evtSource;
-function setupEventSource() {
-    evtSource = new EventSource("subscribe"); 
-  evtSource.onmessage = function (e) {
-    e.stopPropagation();
-    var el = document.querySelector('body');
-    var minHeight = el.scrollTop;
-    var maxHeight = window.innerHeight;
-    var middleHeight = (maxHeight + minHeight) / 2;
-    
-    console.log(minHeight, maxHeight);
-    var ek  = window.innerWidth;
-    console.log(window.innerWidth, window.innerHeight);
-    var elem = document.elementFromPoint(window.innerWidth/2, window.innerHeight/2);
-    var media  = elem.closest(".media");
-    
-    var rect = media.getBoundingClientRect();
-    console.log(rect.top, rect.bottom);
-    
-    
-    evtSource.onmessage =  function(){};
-    document.open('text/html');
-    document.write(e.data);
-    document.close();
-    
-    window.scrollTo(0, 500);
-  };
-    evtSource.onerror = function(e) {
-      evtSource.close();
-    console.log("disconnect");
-      setupEventSource()
-    };
-}
-setupEventSource();
-/* window.requestAnimationFrame(function () { setupEventSource() });*/
+  {{^index}}
+  <script type="text/javascript">
+    var evtSource;
+    function setupEventSource() {
+      evtSource = new EventSource("subscribe");
+      evtSource.onmessage = function (e) {
+        e.stopPropagation();
+        var el = document.querySelector('body');
+        var minHeight = el.scrollTop;
+        var maxHeight = window.innerHeight;
+        var middleHeight = (maxHeight + minHeight) / 2;
 
-setupEventSource()
-</script>
-{{/index}}
+        console.log(minHeight, maxHeight);
+        var ek = window.innerWidth;
+        console.log(window.innerWidth, window.innerHeight);
+        var elem = document.elementFromPoint(window.innerWidth / 2, window.innerHeight / 2);
+        var media = elem.closest(".media");
+
+        var rect = media.getBoundingClientRect();
+        console.log(rect.top, rect.bottom);
+
+
+        evtSource.onmessage = function () { };
+        document.open('text/html');
+        document.write(e.data);
+        document.close();
+
+        window.scrollTo(0, 500);
+      };
+      evtSource.onerror = function (e) {
+        evtSource.close();
+        console.log("disconnect");
+        setupEventSource()
+      };
+    }
+    setupEventSource();
+    /* window.requestAnimationFrame(function () { setupEventSource() });*/
+
+    setupEventSource()
+  </script>
+  {{/index}}
 
   <style>
     body {
       background-color: linen;
       padding: 30px 0px;
     }
+
     .topic {
       margin-top: 1rem;
     }
+
     .git {
       width: 1rem;
       vertical-align: middle;
@@ -70,9 +73,11 @@ setupEventSource()
       animation-duration: 10s;
       animation-iteration-count: infinite;
     }
-    .git:hover{
-      filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);    
+
+    .git:hover {
+      filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
     }
+
     /*
     @keyframes recolor {    
       to{
@@ -80,12 +85,14 @@ setupEventSource()
       }
     }
     */
-    .image{
+    .image {
       border: .5px solid silver;
     }
+
     .hovered {
       transition: all .2s ease-in-out;
     }
+
     .hovered:hover {
       transform: scale(7) translateX(40%);
       position: relative;
@@ -97,46 +104,47 @@ setupEventSource()
 <body>
   <!-- <script src="js/scripts.js"></script> -->
   <div class="container box">
-  <h1 class="title">{{title}} {{author}}</h1>
-  {{#topics}}
+    <h1 class="title">{{title}} {{author}}</h1>
+    {{#topics}}
     <div class="topic">
-    <h2 class="subtitle">{{title}}</h2>
-    {{#items}}
+      <h2 class="subtitle">{{title}}</h2>
+      {{#items}}
       <article class="media">
         <figure class="media-left">
-        <p class="image is-64x64 {{#img}}hovered{{/img}}">
-          <img src="{{#img}}images/{{img}}{{/img}}{{^img}}https://bulma.io/images/placeholders/128x128.png{{/img}}">
-        </p>
+          <p class="image is-64x64 {{#img}}hovered{{/img}}">
+            <img src="{{#img}}images/{{img}}{{/img}}{{^img}}https://bulma.io/images/placeholders/128x128.png{{/img}}">
+          </p>
         </figure>
         <div class="media-content">
-        <div class="content">
-          <p>
-          <strong>
-            {{#url}}
-              <a href="{{{url}}}" target="_blank">{{title}}</a>
-            {{/url}}
-            {{^url}}
-              {{title}}
-            {{/url}}
-          </strong>
-          <small>{{date}}</small>
-          {{#techs}}
-          <span class="tag is-warning">{{.}}</span>
-          {{/techs}}
-          {{#git}}
-          <a href="{{{git}}}" target="_blank"><img src="images/Octicons-mark-github.svg" alt="Github link" class="git" title="Click to see the Github repository with code"></a>
-          {{/git}} 
-          <br>
-          {{#sub}}{{{sub}}}{{/sub}}
-          </p>
+          <div class="content">
+            <p>
+              <strong>
+                {{#url}}
+                <a href="{{{url}}}" target="_blank">{{title}}</a>
+                {{/url}}
+                {{^url}}
+                {{title}}
+                {{/url}}
+              </strong>
+              <small>{{date}}</small>
+              {{#techs}}
+              <span class="tag is-warning">{{.}}</span>
+              {{/techs}}
+              {{#git}}
+              <a href="{{{git}}}" target="_blank"><img src="images/Octicons-mark-github.svg" alt="Github link"
+                  class="git" title="Click to see the Github repository with code"></a>
+              {{/git}}
+              <br>
+              {{#sub}}{{{sub}}}{{/sub}}
+            </p>
+          </div>
         </div>
-        </div>
-      </article>      
-    {{/items}}
+      </article>
+      {{/items}}
     </div>
-  {{/topics}}
+    {{/topics}}
   </div>
-  
+
   <div class="container box">
     <p>
       © <a href="{{{site}}}" target="_blank">{{author}}</a>. Last update: {{today}}.
@@ -144,4 +152,5 @@ setupEventSource()
   </div>
 
 </body>
+
 </html>
