@@ -112,7 +112,12 @@
       <article class="media">
         <figure class="media-left">
           <p class="image is-64x64 {{#img}}hovered{{/img}}">
-            <img src="{{#img}}images/{{img}}{{/img}}{{^img}}https://bulma.io/images/placeholders/128x128.png{{/img}}">
+          {{#img}}
+            <img src="images/{{img}}">
+            {{/img}}
+            {{^img}}
+            <img>
+            {{/img}}
           </p>
         </figure>
         <div class="media-content">
